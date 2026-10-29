@@ -4,8 +4,8 @@
     "tagline": "Frena la desinformación, comparte la verdad",
     "hero_text": "Proyecto para mitigar la infodemia entre estudiantes de 1.° a 3.° de secundaria de Castilla: aprende a verificar, comparte solo lo comprobado y únete a la comunidad que desmiente noticias falsas.",
     "footer": "Proyecto educativo «Lee antes de creer». Piensa, verifica y luego comparte.",
-    "logo": "images/logo-mvsxwugb.jpg",
-    "banner": "images/banner-mvsy1b5a.jpg",
+    "logo": "images/logo-mvtjaize.jpg",
+    "banner": "images/banner-mvtjccvq.jpg",
     "seo_name": "Lee Antes de creer Mc",
     "google_verification": ""
   },
@@ -70,19 +70,19 @@
     {
       "title": " ¡EL CIELO SE CAE! El manual del zorro para manipular pollos ( Representación de la infodemia) ",
       "grade": "Todos los grados",
-      "url": "videos/598334-mvt038jd.mp4",
+      "url": "videos/598369-mvtjd3yd.mp4",
       "description": "Este es el corto \"Chicken Little\" de Disney de 1943, creado en la Segunda Guerra Mundial para explicar cómo funciona la manipulación.\n\nUn zorro quiere comerse a los pollos pero no puede entrar por la fuerza al corral. Entonces usa un libro de Psicología. Su estrategia es:\n\n1. Busca al más ingenuo (el pollito) y le hace creer una mentira gigante: \"¡El cielo se cae!\".\n2. Usa el miedo para que nadie piense.\n3. Destruye la credibilidad del líder (el Gallo) con chismes: \"está loco, está borracho\".\n4. Engaña al pollito haciéndole creer que es un gran líder para que él mismo lleve a todos a la trampa.\n5. La trampa es una cueva, que en realidad es la boca del zorro.\n\nAl final, todos se entregan solos a ser devorados.\n\nSu relación con la desinformación actual es total: hoy el zorro no usa un libro de psicología, usa WhatsApp y TikTok. Crea miedo con noticias falsas apocalípticas, hace que desconfiemos de expertos y científicos, y usa a gente común (influencers o trolls) para llevarnos a su \"cueva\", que son los grupos cerrados donde no podemos verificar la verdad."
     },
     {
       "title": "La infodemia",
       "grade": "Todos los grados",
-      "url": "videos/597864-mvt04sa5.mp4",
+      "url": "videos/598617-mvtjdzcc.mp4",
       "description": "Como se da la infodemia qué es y como se da "
     }
   ],
-  "debunks_title": "Desmentidos de la comunidad",
+  "debunks_title": "",
   "debunks": [
-    "Ejemplo: «Reenvía este mensaje o tu cuenta se cerrará» | Falso | Es una cadena sin fuente. Reemplaza este ejemplo desde el panel admin con un desmentido real y su fuente."
+    ""
   ],
   "theme": {
     "brand": "#00ff00",
