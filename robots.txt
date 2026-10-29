@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://webjoel90911.github.io/Frena-la-desinformaci-n-comparte-la-verdad-/sitemap.xml
+Sitemap: https://webjoel90911.github.io/lee-antes-de-creer/sitemap.xml
