@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Admin · Lee antes de creer</title>
+<style>
+:root{--bg:#f2f4fa;--card:#fff;--ink:#1d2433;--muted:#5d677d;--brand:#2b59ff;--line:#dde2ee;--red:#d33;--ok:#16a34a}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:#161b2b;color:#fff;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;position:sticky;top:0;z-index:20}
+header h1{font-size:1.05rem;margin:0;min-width:0}
+header .acts{display:flex;gap:8px}
+main{max-width:900px;margin:0 auto;padding:20px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:18px}
+.panel h2{margin:0 0 12px;font-size:1.1rem}
+label{overflow-wrap:anywhere;display:block;font-size:.82rem;font-weight:700;color:var(--muted);margin:10px 0 4px}
+input,textarea,select{width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:9px;font:inherit;background:#fff;color:var(--ink)}
+textarea{min-height:90px;resize:vertical}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.row>div{min-width:0}
+img,video{max-width:100%}
+button{border:0;border-radius:9px;padding:9px 14px;font:inherit;font-weight:700;cursor:pointer;background:var(--brand);color:#fff}
+button.g{background:#e8ecf7;color:var(--ink)}
+button.r{background:#fde8e8;color:var(--red)}
+button:disabled{opacity:.5;cursor:not-allowed}
+.item{border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px;background:#fafbff}
+.item .bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.item .bar b{font-size:.9rem}
+.item .bar button{padding:5px 10px;font-size:.8rem;margin-left:4px}
+.hint{font-size:.82rem;color:var(--muted);margin:6px 0 0;overflow-wrap:anywhere}
+#status{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:#161b2b;color:#fff;padding:10px 18px;border-radius:999px;font-size:.9rem;opacity:0;pointer-events:none;transition:.25s;max-width:92vw;z-index:30}
+#status.show{opacity:1}
+#status.err{background:var(--red)}
+#status.ok{background:var(--ok)}
+.hide{display:none}
+@media(max-width:640px){
+  header{padding:10px 12px}
+  header h1{font-size:.95rem;flex:1 1 100%}
+  header .acts{flex:1 1 100%}
+  header .acts button{flex:1;padding:10px 8px;font-size:.88rem}
+  main{padding:12px 12px 90px}
+  .panel{padding:14px;margin-bottom:14px}
+  .row{grid-template-columns:1fr;gap:0}
+  input,textarea,select{font-size:16px;padding:11px 12px}
+  input[type=color]{height:46px!important}
+  button{min-height:42px}
+  .item{padding:12px}
+  .item .bar{flex-wrap:wrap;gap:8px}
+  .item .bar span{display:flex;gap:6px}
+  .item .bar button{margin:0;min-height:38px;padding:6px 14px}
+  #status{bottom:max(16px,env(safe-area-inset-bottom));width:calc(100% - 24px);max-width:none;text-align:center;border-radius:14px}
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>Panel admin · Lee antes de creer</h1>
+  <div class="acts">
+    <button class="g" id="btn-dl">Descargar JSON</button>
+    <button id="btn-save" disabled>Guardar en GitHub</button>
+  </div>
+</header>
+
+<main>
+  <div class="panel">
+    <h2>1. Conexión con GitHub</h2>
+    <div class="row">
+      <div><label>Usuario u organización</label><input id="c-owner" placeholder="tu-usuario"></div>
+      <div><label>Repositorio</label><input id="c-repo" placeholder="lee-antes-de-creer"></div>
+    </div>
+    <div class="row">
+      <div><label>Rama</label><input id="c-branch" value="main"></div>
+      <div><label>Archivo de contenido</label><input id="c-path" value="content.json"></div>
+    </div>
+    <label>Carpeta para videos MP4</label><input id="c-vdir" value="videos">
+    <label>Token de GitHub</label>
+    <input id="c-token" type="password" placeholder="github_pat_...">
+    <p class="hint">Crea un token en GitHub → Settings → Developer settings → Fine-grained tokens, con permiso <b>Contents: Read and write</b> solo para este repositorio. Se guarda únicamente en este navegador.</p>
+    <p style="margin-top:12px"><button id="btn-load">Conectar y cargar contenido</button></p>
+  </div>
+
+  <div id="editor" class="hide">
+    <div class="panel">
+      <h2>Apariencia</h2>
+      <label>Logo (cuadrado, PNG/JPG/SVG). Se usa en el sitio, en Google, en redes y como icono de la app</label>
+      <input data-path="site.logo" placeholder="images/logo.png"><input type="file" accept="image/*" data-img="site.logo" style="margin-top:6px">
+      <label>Imagen de banner (portada)</label>
+      <input data-path="site.banner" placeholder="images/banner.jpg"><input type="file" accept="image/*" data-img="site.banner" style="margin-top:6px">
+      <p class="hint">Las imágenes se suben a la carpeta <b>images/</b> de tu repositorio. Al pulsar «Guardar en GitHub», el título, la descripción, el logo y los colores también se actualizan en las etiquetas que leen Google y las redes sociales.</p>
+    </div>
+
+    <div class="panel">
+      <h2>2. Datos del sitio</h2>
+      <label>Título</label><input data-path="site.title">
+      <label>Nombre para Google (así quieres que te encuentren)</label><input data-path="site.seo_name" placeholder="Lee Antes de creer Mc">
+      <label>Código de verificación de Google Search Console (opcional)</label><input data-path="site.google_verification" placeholder="solo el valor de content, ej.: AbC123...">
+      <label>Eslogan</label><input data-path="site.tagline">
+      <label>Texto de portada</label><textarea data-path="site.hero_text"></textarea>
+      <label>Texto del pie de página</label><input data-path="site.footer">
+    </div>
+
+    <div class="panel">
+      <h2>Desmentidos</h2>
+      <label>Título de la sección</label><input data-path="debunks_title">
+      <label>Una por línea: Afirmación | Falso o Verdadero | Explicación y fuente</label><textarea data-path="debunks" data-lines="1" style="min-height:150px"></textarea>
+    </div>
+
+    <div class="panel">
+      <h2>3. Checklist</h2>
+      <label>Título de la sección</label><input data-path="checklist_title">
+      <label>Preguntas (una por línea)</label><textarea data-path="checklist" data-lines="1" style="min-height:150px"></textarea>
+    </div>
+
+    <div class="panel">
+      <h2>4. Tutoriales</h2>
+      <div id="list-tut"></div>
+      <button class="g" id="add-tut">+ Agregar tutorial</button>
+    </div>
+
+    <div class="panel">
+      <h2>5. Charlas en video</h2>
+      <label>Título de la sección</label><input data-path="videos_title">
+      <div id="list-vid" style="margin-top:12px"></div>
+      <button class="g" id="add-vid">+ Agregar video</button>
+      <p class="hint">Puedes subir un MP4 directamente (máx. ~95 MB; si pesa más, usa YouTube). También acepta enlaces de YouTube (watch, youtu.be, shorts), Google Drive (compartido como «cualquiera con el enlace») o archivos .mp4 directos.</p>
+    </div>
+  </div>
+</main>
+<div id="status"></div>
+
+<script>
+const $ = id => document.getElementById(id);
+const GRADES = ['1.° de secundaria','2.° de secundaria','3.° de secundaria','Todos los grados'];
+let data = null, sha = null, dirty = false;
+
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const b64d = b => decodeURIComponent(escape(atob(b.replace(/\n/g,''))));
+const b64e = s => btoa(unescape(encodeURIComponent(s)));
+
+function toast(msg, type){
+  const s = $('status'); s.textContent = msg; s.className = 'show ' + (type||'');
+  clearTimeout(toast.t); toast.t = setTimeout(()=> s.className = '', type==='err' ? 6000 : 2600);
+}
+
+/* ---------- conexión ---------- */
+const FIELDS = ['owner','repo','branch','path','token','vdir'];
+FIELDS.forEach(f => { const v = localStorage.getItem('lac_'+f); if(v) $('c-'+f).value = v; });
+const cfg = () => Object.fromEntries(FIELDS.map(f => [f, $('c-'+f).value.trim()]));
+const apiUrl = c => `https://api.github.com/repos/${encodeURIComponent(c.owner)}/${encodeURIComponent(c.repo)}/contents/${c.path.split('/').map(encodeURIComponent).join('/')}`;
+const headers = c => ({'Accept':'application/vnd.github+json','Authorization':'Bearer '+c.token});
+
+$('btn-load').onclick = async () => {
+  const c = cfg();
+  if(!c.owner || !c.repo || !c.token){ return toast('Completa usuario, repositorio y token.', 'err'); }
+  FIELDS.forEach(f => localStorage.setItem('lac_'+f, c[f]));
+  try{
+    const r = await fetch(apiUrl(c) + '?ref=' + encodeURIComponent(c.branch) + '&t=' + Date.now(), {headers: headers(c)});
+    if(r.status === 401) throw new Error('Token inválido o vencido.');
+    if(r.status === 404) throw new Error('No se encontró el archivo. Revisa usuario, repositorio, rama y que content.json exista.');
+    if(!r.ok) throw new Error('Error de GitHub ('+r.status+').');
+    const j = await r.json();
+    sha = j.sha;
+    data = JSON.parse(b64d(j.content));
+    normalize();
+    buildEditor();
+    $('editor').classList.remove('hide');
+    $('btn-save').disabled = false;
+    dirty = false;
+    toast('Contenido cargado.', 'ok');
+  }catch(e){ toast(e.message, 'err'); }
+};
+
+$('btn-save').onclick = async () => {
+  const c = cfg();
+  if(!data) return;
+  $('btn-save').disabled = true;
+  try{
+    const clean = cleanData();
+    const body = {
+      message: 'Actualizar contenido desde el panel admin',
+      content: b64e(JSON.stringify(clean, null, 2) + '\n'),
+      sha, branch: c.branch
+    };
+    const r = await fetch(apiUrl(c), {method:'PUT', headers:{...headers(c),'Content-Type':'application/json'}, body: JSON.stringify(body)});
+    if(r.status === 409 || r.status === 422) throw new Error('El archivo cambió en GitHub. Vuelve a pulsar «Conectar y cargar» y repite tus cambios.');
+    if(r.status === 401 || r.status === 403 || r.status === 404) throw new Error('Sin permiso para escribir. Revisa que el token tenga Contents: Read and write.');
+    if(!r.ok) throw new Error('Error de GitHub ('+r.status+').');
+    const j = await r.json();
+    sha = j.content.sha;
+    dirty = false;
+    try{ await syncSeo(c, clean); toast('Guardado. GitHub Pages tardará ~1 minuto en actualizar.', 'ok'); }
+    catch(e2){ toast('Contenido guardado, pero no se actualizaron las etiquetas para Google: ' + e2.message, 'err'); }
+  }catch(e){ toast(e.message, 'err'); }
+  $('btn-save').disabled = false;
+};
+
+$('btn-dl').onclick = () => {
+  if(!data) return toast('Primero carga el contenido.', 'err');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([JSON.stringify(cleanData(), null, 2)], {type:'application/json'}));
+  a.download = 'content.json'; a.click();
+};
+
+/* ---------- datos ---------- */
+function normalize(){
+  data.site = data.site || {};
+  data.checklist = data.checklist || [];
+  data.tutorials = data.tutorials || [];
+  data.videos = data.videos || [];
+  data.theme = Object.assign({brand:"#2b59ff", brand2:"#7a3cff"}, data.theme || {});
+  data.debunks = data.debunks || [];
+  data.tutorials.forEach(t => t.steps = t.steps || []);
+}
+function cleanData(){
+  const d = JSON.parse(JSON.stringify(data));
+  d.checklist = (d.checklist||[]).map(x=>x.trim()).filter(Boolean);
+  d.tutorials = (d.tutorials||[]).filter(t => (t.title||'').trim()).map(t => ({...t, steps:(t.steps||[]).map(x=>x.trim()).filter(Boolean)}));
+  d.videos = (d.videos||[]).filter(v => (v.title||'').trim() || (v.url||'').trim());
+  return d;
+}
+function getPath(o, p){ return p.split('.').reduce((a,k)=> a==null ? a : a[k], o); }
+function setPath(o, p, v){
+  const ks = p.split('.'); const last = ks.pop();
+  const t = ks.reduce((a,k)=> a[k] ??= {}, o);
+  t[last] = v;
+}
+
+/* ---------- editor ---------- */
+function fillBound(root){
+  root.querySelectorAll('[data-path]').forEach(el => {
+    let v = getPath(data, el.dataset.path);
+    if(el.dataset.lines) v = (v||[]).join('\n');
+    el.value = v ?? '';
+  });
+}
+document.addEventListener('input', e => {
+  const el = e.target; if(!el.dataset || !el.dataset.path || !data) return;
+  setPath(data, el.dataset.path, el.dataset.lines ? el.value.split('\n') : el.value);
+  dirty = true;
+});
+
+function tutHTML(t, i){
+  return `<div class="item"><div class="bar"><b>Tutorial ${i+1}</b><span>
+    <button class="g" data-act="up" data-k="tutorials" data-i="${i}">↑</button>
+    <button class="g" data-act="down" data-k="tutorials" data-i="${i}">↓</button>
+    <button class="r" data-act="del" data-k="tutorials" data-i="${i}">Eliminar</button></span></div>
+    <label>Título</label><input data-path="tutorials.${i}.title">
+    <label>Categoría (ej.: Noticias, Redes sociales, Salud)</label><input data-path="tutorials.${i}.category">
+    <label>Resumen</label><textarea data-path="tutorials.${i}.summary" style="min-height:60px"></textarea>
+    <label>Pasos (uno por línea)</label><textarea data-path="tutorials.${i}.steps" data-lines="1"></textarea></div>`;
+}
+function vidHTML(v, i){
+  const opts = GRADES.map(g => `<option value="${esc(g)}">${esc(g)}</option>`).join('');
+  return `<div class="item"><div class="bar"><b>Video ${i+1}</b><span>
+    <button class="g" data-act="up" data-k="videos" data-i="${i}">↑</button>
+    <button class="g" data-act="down" data-k="videos" data-i="${i}">↓</button>
+    <button class="r" data-act="del" data-k="videos" data-i="${i}">Eliminar</button></span></div>
+    <label>Título</label><input data-path="videos.${i}.title">
+    <div class="row"><div><label>Grado</label><select data-path="videos.${i}.grade">${opts}</select></div>
+    <div><label>Enlace del video</label><input data-path="videos.${i}.url" placeholder="https://www.youtube.com/watch?v=... o videos/archivo.mp4"></div></div>
+    <label>O sube un archivo MP4 (se guarda en la carpeta de videos de tu repositorio)</label><input type="file" accept="video/mp4,.mp4" data-up="${i}">
+    <label>Descripción</label><textarea data-path="videos.${i}.description" style="min-height:60px"></textarea></div>`;
+}
+function buildEditor(){
+  $('list-tut').innerHTML = data.tutorials.map(tutHTML).join('');
+  $('list-vid').innerHTML = data.videos.map(vidHTML).join('');
+  // grado inexistente en lista: agregarlo para no perder el valor
+  data.videos.forEach((v,i) => {
+    const sel = document.querySelector(`select[data-path="videos.${i}.grade"]`);
+    if(sel && v.grade && !GRADES.includes(v.grade)) sel.insertAdjacentHTML('beforeend', `<option value="${esc(v.grade)}">${esc(v.grade)}</option>`);
+    if(sel && !v.grade){ v.grade = GRADES[0]; }
+  });
+  fillBound($('editor'));
+}
+
+$('add-tut').onclick = () => { data.tutorials.push({title:'',category:'',summary:'',steps:[]}); dirty = true; buildEditor(); };
+$('add-vid').onclick = () => { data.videos.push({title:'',grade:GRADES[0],url:'',description:''}); dirty = true; buildEditor(); };
+
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-act]'); if(!b || !data) return;
+  const arr = data[b.dataset.k], i = +b.dataset.i, act = b.dataset.act;
+  if(act === 'del'){ if(!confirm('¿Eliminar este elemento?')) return; arr.splice(i,1); }
+  else if(act === 'up' && i > 0){ [arr[i-1], arr[i]] = [arr[i], arr[i-1]]; }
+  else if(act === 'down' && i < arr.length-1){ [arr[i+1], arr[i]] = [arr[i], arr[i+1]]; }
+  else return;
+  dirty = true; buildEditor();
+});
+
+/* ---------- etiquetas para Google / redes (index.html) ---------- */
+async function putText(c, path, text){
+  const u = apiUrl({...c, path}); let sha;
+  const r = await fetch(u + '?ref=' + encodeURIComponent(c.branch) + '&t=' + Date.now(), {headers: headers(c)});
+  if(r.ok){ const j = await r.json(); if(b64d(j.content) === text) return; sha = j.sha; }
+  else if(r.status !== 404) throw new Error('no se pudo leer ' + path + ' (' + r.status + ')');
+  const w = await fetch(u, {method:'PUT', headers:{...headers(c),'Content-Type':'application/json'}, body: JSON.stringify({message:'Actualizar ' + path, content:b64e(text), sha, branch:c.branch})});
+  if(!w.ok) throw new Error('no se pudo escribir ' + path + ' (' + w.status + ')');
+}
+async function syncSeo(c, d){
+  const u = apiUrl({...c, path:'index.html'});
+  const r = await fetch(u + '?ref=' + encodeURIComponent(c.branch) + '&t=' + Date.now(), {headers: headers(c)});
+  if(!r.ok) throw new Error('no se pudo leer index.html (' + r.status + ')');
+  const j = await r.json(), html = b64d(j.content);
+  if(!html.includes('<!--seo:start-->')) throw new Error('sube el index.html nuevo (le faltan las marcas seo).');
+  const o = c.owner.toLowerCase(), home = 'https://' + o + '.github.io/' + (c.repo.toLowerCase() === o + '.github.io' ? '' : c.repo + '/');
+  const abs = p => !p ? '' : /^https?:/.test(p) ? p : home + p.replace(/^\//,'');
+  const s = d.site || {}, img = abs(s.banner || s.logo), nm = s.seo_name || s.title || '', t = esc(nm + (s.tagline ? ' | ' + s.tagline : '')), ds = esc(s.tagline || '');
+  const ld = JSON.stringify({'@context':'https://schema.org','@type':'WebSite',name:nm,alternateName:[s.title,'Lee antes de creer'].filter(x => x && x !== nm),url:home}).replace(/</g,'\\u003c');
+  const block = '<!--seo:start-->\n<title>' + t + '</title>\n<meta name="description" content="' + ds + '">\n<link rel="canonical" href="' + home + '">\n<meta name="theme-color" content="' + '#2b59ff' + '">\n' +
+    (s.google_verification ? '<meta name="google-site-verification" content="' + esc(s.google_verification.trim()) + '">\n' : '') +
+    (s.logo ? '<link rel="icon" href="' + esc(s.logo) + '">\n' : '') +
+    '<meta property="og:type" content="website">\n<meta property="og:site_name" content="' + esc(nm) + '">\n<meta property="og:title" content="' + t + '">\n<meta property="og:description" content="' + ds + '">\n<meta property="og:url" content="' + home + '">\n' +
+    (img ? '<meta property="og:image" content="' + esc(img) + '">\n<meta name="twitter:card" content="summary_large_image">\n' : '') +
+    '<script type="application/ld+json">' + ld + '<\/script>\n<!--seo:end-->';
+  await putText(c, 'robots.txt', 'User-agent: *\nAllow: /\n\nSitemap: ' + home + 'sitemap.xml\n');
+  await putText(c, 'sitemap.xml', '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url>\n    <loc>' + home + '</loc>\n    <lastmod>' + new Date().toISOString().slice(0,10) + '</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>1.0</priority>\n  </url>\n</urlset>\n');
+  const out = html.replace(/<!--seo:start-->[\s\S]*?<!--seo:end-->/, () => block);
+  if(out === html) return;
+  const w = await fetch(u, {method:'PUT', headers:{...headers(c),'Content-Type':'application/json'}, body: JSON.stringify({message:'Actualizar etiquetas SEO', content:b64e(out), sha:j.sha, branch:c.branch})});
+  if(!w.ok) throw new Error('no se pudo escribir index.html (' + w.status + ')');
+}
+
+/* ---------- subir imágenes (logo / banner) ---------- */
+document.addEventListener('change', async e => {
+  const inp = e.target, key = inp.dataset && inp.dataset.img; if(!key || !data) return;
+  const f = inp.files[0]; if(!f) return; const c = cfg();
+  if(!/^image\//.test(f.type)){ inp.value=''; return toast('Elige un archivo de imagen.', 'err'); }
+  if(f.size > 5*1024*1024){ inp.value=''; return toast('La imagen pesa más de 5 MB. Redúcela.', 'err'); }
+  const ext = (f.name.split('.').pop() || 'png').toLowerCase().replace(/[^a-z0-9]/g,'');
+  const path = 'images/' + key.split('.')[1] + '-' + Date.now().toString(36) + '.' + ext;
+  toast('Subiendo imagen…');
+  try{
+    const b64 = await new Promise((ok, no) => { const r = new FileReader(); r.onload = () => ok(String(r.result).split(',')[1]); r.onerror = () => no(new Error('No se pudo leer el archivo.')); r.readAsDataURL(f); });
+    const r = await fetch(apiUrl({...c, path}), {method:'PUT', headers:{...headers(c),'Content-Type':'application/json'}, body: JSON.stringify({message:'Subir imagen ' + path, content:b64, branch:c.branch})});
+    if(r.status === 401 || r.status === 403 || r.status === 404) throw new Error('Sin permiso para escribir. Revisa el token.');
+    if(!r.ok) throw new Error('Error de GitHub (' + r.status + ').');
+    setPath(data, key, path); dirty = true; fillBound($('editor'));
+    toast('Imagen subida. Pulsa «Guardar en GitHub» para aplicarla.', 'ok');
+  }catch(err){ toast(err.message, 'err'); }
+  inp.value = '';
+});
+
+/* ---------- subir MP4 a GitHub ---------- */
+document.addEventListener('change', async e => {
+  const inp = e.target; if(inp.dataset.up === undefined || !data) return;
+  const f = inp.files[0]; if(!f) return;
+  const i = +inp.dataset.up, c = cfg();
+  if(!/\.mp4$/i.test(f.name)){ inp.value=''; return toast('Solo se admiten archivos .mp4', 'err'); }
+  if(f.size > 95*1024*1024){ inp.value=''; return toast('El video pesa más de 95 MB. Comprímelo o usa YouTube.', 'err'); }
+  const slug = f.name.replace(/\.mp4$/i,'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'') || 'video';
+  const path = (c.vdir || 'videos').replace(/^\/+|\/+$/g,'') + '/' + slug + '-' + Date.now().toString(36) + '.mp4';
+  inp.disabled = true; toast('Subiendo «' + f.name + '» a GitHub… no cierres la página.');
+  try{
+    const b64 = await new Promise((ok, no) => { const r = new FileReader(); r.onload = () => ok(String(r.result).split(',')[1]); r.onerror = () => no(new Error('No se pudo leer el archivo.')); r.readAsDataURL(f); });
+    const r = await fetch(apiUrl({...c, path}), {method:'PUT', headers:{...headers(c),'Content-Type':'application/json'}, body: JSON.stringify({message:'Subir video ' + path, content:b64, branch:c.branch})});
+    if(r.status === 401 || r.status === 403 || r.status === 404) throw new Error('Sin permiso para escribir. Revisa que el token tenga Contents: Read and write.');
+    if(!r.ok) throw new Error('Error de GitHub (' + r.status + ').');
+    data.videos[i].url = path; dirty = true; buildEditor();
+    toast('Video subido a ' + path + '. Pulsa «Guardar en GitHub» para publicarlo en el sitio.', 'ok');
+  }catch(err){ toast(err.message, 'err'); inp.disabled = false; inp.value = ''; }
+});
+
+window.addEventListener('beforeunload', e => { if(dirty){ e.preventDefault(); e.returnValue = ''; } });
+</script>
+</body>
+</html>

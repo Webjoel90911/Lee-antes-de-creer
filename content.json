@@ -1,0 +1,91 @@
+{
+  "site": {
+    "title": "Lee antes de creer! ",
+    "tagline": "Frena la desinformación, comparte la verdad",
+    "hero_text": "Proyecto para mitigar la infodemia entre estudiantes de 1.° a 3.° de secundaria de Castilla: aprende a verificar, comparte solo lo comprobado y únete a la comunidad que desmiente noticias falsas.",
+    "footer": "Proyecto educativo «Lee antes de creer». Piensa, verifica y luego comparte.",
+    "logo": "images/logo-mvsxwugb.jpg",
+    "banner": "images/banner-mvsy1b5a.jpg",
+    "seo_name": "Lee Antes de creer Mc",
+    "google_verification": ""
+  },
+  "checklist_title": "Antes de compartir, hazte estas 6 preguntas",
+  "checklist": [
+    "¿Quién lo publicó? ¿Es una persona o medio conocido y confiable?",
+    "¿Hay fecha? ¿Es una noticia actual o un hecho viejo que vuelve a circular?",
+    "¿Otros medios serios también lo publican?",
+    "¿Cita fuentes verificables (documentos, expertos, datos oficiales)?",
+    "¿Busca asustarme, enojarme o que lo reenvíe “urgente”?",
+    "¿La imagen o el video son reales? (haz una búsqueda inversa de imagen)"
+  ],
+  "tutorials": [
+    {
+      "title": "Cómo identificar si una noticia es falsa",
+      "category": "Noticias",
+      "summary": "Un método de 5 pasos para analizar cualquier noticia antes de creerla.",
+      "steps": [
+        "Lee el titular completo y también el contenido: muchos titulares exageran lo que dice el texto.",
+        "Revisa la fuente: busca el nombre del medio, quién lo escribe y si tiene página oficial.",
+        "Mira la fecha de publicación: algunas noticias antiguas se reciclan como si fueran nuevas.",
+        "Contrasta: busca el mismo hecho en al menos dos o tres medios confiables.",
+        "Consulta verificadores como Maldita.es, Newtral, Chequeado o Google Fact Check Explorer."
+      ]
+    },
+    {
+      "title": "Cómo detectar desinformación en redes sociales",
+      "category": "Redes sociales",
+      "summary": "TikTok, Facebook, WhatsApp e Instagram: señales de alerta en publicaciones virales.",
+      "steps": [
+        "Desconfía de cadenas que dicen “reenvía a todos tus contactos” o “los medios no quieren que lo sepas”.",
+        "Revisa el perfil: ¿cuándo se creó?, ¿tiene pocos seguidores?, ¿solo publica un mismo tema? Puede ser una cuenta falsa.",
+        "Observa si el mensaje usa mayúsculas, muchos signos de exclamación o emociones extremas.",
+        "Lee los comentarios: a menudo alguien ya señaló que es falso.",
+        "No compartas si no puedes comprobarlo. Compartir sin verificar también es desinformar."
+      ]
+    },
+    {
+      "title": "Verifica imágenes y videos",
+      "category": "Imágenes y video",
+      "summary": "Aprende a saber si una foto o un video está fuera de contexto o fue manipulado.",
+      "steps": [
+        "Haz una búsqueda inversa con Google Lens o TinEye para ver dónde apareció la imagen por primera vez.",
+        "Fíjate en detalles raros: manos deformadas, textos borrosos, sombras que no coinciden.",
+        "En videos, busca palabras clave del hecho en YouTube y en medios para ver si es de otra fecha o lugar.",
+        "Recuerda que las imágenes creadas con inteligencia artificial pueden parecer muy reales: contrasta siempre."
+      ]
+    },
+    {
+      "title": "Salud: cuidado con los remedios milagro",
+      "category": "Salud",
+      "summary": "La desinformación sobre salud puede poner en riesgo la vida. Cómo reconocerla.",
+      "steps": [
+        "Desconfía de promesas como “cura todo”, “100% natural y sin riesgo” o “lo que los médicos ocultan”.",
+        "Busca la información en fuentes oficiales: Ministerio de Salud, OMS o centros de salud.",
+        "Ante la duda, consulta con un profesional de salud antes de seguir cualquier consejo."
+      ]
+    }
+  ],
+  "videos_title": "Charlas para estudiantes",
+  "videos": [
+    {
+      "title": " ¡EL CIELO SE CAE! El manual del zorro para manipular pollos ( Representación de la infodemia) ",
+      "grade": "Todos los grados",
+      "url": "videos/598334-mvt038jd.mp4",
+      "description": "Este es el corto \"Chicken Little\" de Disney de 1943, creado en la Segunda Guerra Mundial para explicar cómo funciona la manipulación.\n\nUn zorro quiere comerse a los pollos pero no puede entrar por la fuerza al corral. Entonces usa un libro de Psicología. Su estrategia es:\n\n1. Busca al más ingenuo (el pollito) y le hace creer una mentira gigante: \"¡El cielo se cae!\".\n2. Usa el miedo para que nadie piense.\n3. Destruye la credibilidad del líder (el Gallo) con chismes: \"está loco, está borracho\".\n4. Engaña al pollito haciéndole creer que es un gran líder para que él mismo lleve a todos a la trampa.\n5. La trampa es una cueva, que en realidad es la boca del zorro.\n\nAl final, todos se entregan solos a ser devorados.\n\nSu relación con la desinformación actual es total: hoy el zorro no usa un libro de psicología, usa WhatsApp y TikTok. Crea miedo con noticias falsas apocalípticas, hace que desconfiemos de expertos y científicos, y usa a gente común (influencers o trolls) para llevarnos a su \"cueva\", que son los grupos cerrados donde no podemos verificar la verdad."
+    },
+    {
+      "title": "La infodemia",
+      "grade": "Todos los grados",
+      "url": "videos/597864-mvt04sa5.mp4",
+      "description": "Como se da la infodemia qué es y como se da "
+    }
+  ],
+  "debunks_title": "Desmentidos de la comunidad",
+  "debunks": [
+    "Ejemplo: «Reenvía este mensaje o tu cuenta se cerrará» | Falso | Es una cadena sin fuente. Reemplaza este ejemplo desde el panel admin con un desmentido real y su fuente."
+  ],
+  "theme": {
+    "brand": "#00ff00",
+    "brand2": "#73ff66"
+  }
+}
